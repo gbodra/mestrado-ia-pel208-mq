@@ -1,5 +1,30 @@
-heights = [69, 67, 71, 65, 72, 68, 74, 65, 66, 72]
-shoe_size = [9.5, 8.5, 11.5, 10.5, 11, 7.5, 12, 7, 7.5, 13]
+dataset = "height_shoesize"
+
+if dataset == "US-Census" or dataset == "height_shoesize":
+    x_input = []
+    y_input = []
+
+    f = open("data/" + dataset + ".txt")
+    lines = f.readlines()
+
+    for line in lines:
+        line = line.strip("\n")
+        x, y = line.split(";")
+        x_input.append(float(x))
+        y_input.append(float(y))
+else:
+    x_input = [69, 67, 71, 65, 72, 68, 74, 65, 66, 72]
+    y_input = [9.5, 8.5, 11.5, 10.5, 11, 7.5, 12, 7, 7.5, 13]
+
+
+def print_matrix(matrix, decimals=4):
+    """
+    Imprime matriz linha a linha
+        :param matrix: matriz que deverá ser impressa
+        :param decimals: qtde casas decimais
+    """
+    for row in matrix:
+        print([round(element, decimals) + 0 for element in row])
 
 
 def add_bias(v):
@@ -141,27 +166,27 @@ def regression(input_regression, beta_calculated):
     return regression_result
 
 
-x_bias = add_bias(heights)
+x_bias = add_bias(x_input)
 x_bias_t = matrix_transpose(x_bias)
 Xt_X = matrix_multiply(x_bias_t, x_bias)
-Xt_Y = matrix_vector_multiply(x_bias_t, shoe_size)
+Xt_Y = matrix_vector_multiply(x_bias_t, y_input)
 Xt_X_i = matrix_2x2_i(Xt_X)
 beta = matrix_vector_multiply(Xt_X_i, Xt_Y)
 
 estimation = regression([[1, 70]], beta)
 
 print("Original:")
-print(heights)
+print(x_input)
 print("+ bias:")
-print(x_bias)
+print_matrix(x_bias)
 print("Transposta:")
-print(x_bias_t)
+print_matrix(x_bias_t)
 print("Xt_X:")
-print(Xt_X)
+print_matrix(Xt_X)
 print("Xt_Y:")
 print(Xt_Y)
 print("Xt_X_i:")
-print(Xt_X_i)
+print_matrix(Xt_X_i)
 print("beta:")
 print(beta)
 print("estimation:")
