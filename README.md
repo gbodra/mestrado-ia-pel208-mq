@@ -17,6 +17,8 @@ Teste o funcionamento usando:
 - "US Census Dataset"
 
 ## Estrutura do trabalho
+Repositório: https://github.com/gbodra/mestrado-ia-pel208-mq
+
 Para resolver e testar este exercício foram criados dois arquivos:
 
 - main.py: contém a resolução do exercício conforme solicitado
