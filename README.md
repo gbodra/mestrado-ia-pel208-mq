@@ -15,10 +15,7 @@ Teste o funcionamento usando:
 ## Estrutura do trabalho
 Para resolver e testar este exercício foram criados dois arquivos:
 - main.py: contém a resolução do exercício conforme solicitado
+    - Para testar o código é só executar este script. Todos os datasets serão carregados e testados: ```` python3 main.py ````
+    - Foram testados os 3 datasets pedidos e também o dataset apresentado em aulas: height x shoe size
 - test.py: contém a implementação utilizando a biblioteca sklearn para validar os resultados
 
-## Pendências
-- TODO: revisar resultado da regressão do exemplo da aula. Tem algo errado na última parte do cálculo
-- TODO: construir método para fazer a matriz inversa 3x3
-- TODO: construir método para fazer a leitura dos arquivos de entrada
-- TODO: construir teste utilizando bibliotecas do Python para validar a minha implementação
