@@ -187,8 +187,13 @@ def weigthing(weight_list, x_list):
         :return: vetor resultante
     """
     rows_x = len(x_list)
+
     for i in range(rows_x):
-        x_list[i] = x_list[i] * weight_list[i]
+        if isinstance(x_list[0], list):
+            for j in range(len(x_list[i])):
+                x_list[i][j] = x_list[i][j] * weight_list[i]
+        else:
+            x_list[i] = x_list[i] * weight_list[i]
 
     return x_list
 
@@ -247,10 +252,10 @@ def regression_weighted(input_regression):
     x_bias = add_bias(x_input)
     beta = calculate_beta(x_bias)
 
-    x_bias_t = matrix_transpose(x_bias)
-    weight_vector = weight(x_input, y_input, beta)
+    weight_vector = weight(x_bias, y_input, beta)
     x_bias_weighted = weigthing(weight_vector, x_input)
     x_bias_weighted = add_bias(x_bias_weighted)
+    x_bias_t = matrix_transpose(x_bias_weighted)
     Xt_X = matrix_multiply(x_bias_t, x_bias_weighted)
     y_weighted = weigthing(weight_vector, y_input)
     Xt_Y = matrix_vector_multiply(x_bias_t, y_weighted)
@@ -270,10 +275,12 @@ def weight(x, y, beta):
 
         :return: vetor com pesos calculados
     """
-    size = len(x)
     weight = []
+    x_beta = matrix_vector_multiply(x, beta)
+    size = len(x_beta)
     for i in range(size):
-        weight.append(1 / (y[i] - beta[0] + x[i] * beta[1]))
+        w = 1 / (y[i] - x_beta[i])
+        weight.append(abs(w))
 
     return weight
 
@@ -341,6 +348,11 @@ x_input = []
 y_input = []
 dataset = "Books_attend_grade"
 load_file(dataset)
-estimation = regression([[1, 2, 15]])
-estimation_quadratic = regression_quadratic([[1, 2, 15, 2 ** 2, 15 ** 2]])
-estimation_robust = regression_weighted([[1, 2, 15]])
+books_attend_grade_estimation = regression([[1, 2, 15]])
+books_attend_grade_estimation_quadratic = regression_quadratic([[1, 2, 15, 2 ** 2, 15 ** 2]])
+books_attend_grade_estimation_robust = regression_weighted([[1, 2, 15]])
+
+print("books_attend_grade_estimation: ", books_attend_grade_estimation)
+print("books_attend_grade_estimation_quadratic: ", books_attend_grade_estimation_quadratic)
+print("books_attend_grade_estimation_robust: ", books_attend_grade_estimation_robust)
+print("******************************")
